@@ -1,41 +1,80 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+#define int long long
+#define float double
+#define vi vector<int>
+#define vf vector<float>
+#define vb vector<bool>
+#define vc vector<char>
+#define vs vector<string>
+#define rep(i,a,b) for(int i = a;i<=b;i++)
+#define rrep(i,a,b) for(int i = a;i>=b;i--)
+#define jaldi ios_base::sync_with_stdio(false);
+#define kar cin.tie(NULL);
+#define bhai cout.tie(NULL);
+#define no "NO"
+#define yes "YES"
+#define all(_) _.begin(),_.end()
 using namespace std;
-vector<int> sol;
-int selection(vector<int> s, vector<int> t)
+
+template <typename T>
+istream &operator>>(istream &istream, vector<T> &v)
 {
-     int count = 1;
-     sol.push_back(0);
-     int i = 0;
-     for (int j = 0; j < t.size(); j++)
+     for (auto &it : v)
+          cin >> it;
+     return istream;
+}
+
+template <typename Te>
+ostream &operator<<(ostream &ostream, vector<Te> &v)
+{
+     for (auto it : v)
      {
-          if (t[i] <= s[j])
-          {
-               sol.push_back(j);
-               i = j;
-               count++;
+          cout << it << " ";
+     }
+     cout << endl;
+     return ostream;
+}
+bool comp(pair<int,int> a,pair<int,int> b){
+     return a.second < b.second;
+}
+void solution(){
+     int n;cin>>n;
+     vector<pair<int,int>> ar;
+     rep(i,1,n){
+          pair<int,int> _;
+          int a,b;
+          cin>>a>>b;
+          _={a,b};
+          ar.push_back(_);
+     }
+
+     sort(all(ar),comp);
+     int cnt = 1;
+     pair<int,int> t = {ar[0].first , ar[0].second};
+     vector<pair<int,int>> ans;
+     ans.push_back(t);
+     int j = 0;
+     rep(i,1,n-1){
+          if(ar[j].second <= ar[i].first){
+               t = {ar[i].first,ar[i].second};
+               ans.push_back(t);
+               cnt++;
+               j = i;
           }
      }
-     return count;
+
+     cout<<cnt<<endl;
+     for(auto it: ans) cout<<it.first<<" "<<it.second<<endl;
 }
-int main()
+signed main()
 {
-     vector<int> s, t;
-     int n;
-     cin >> n;
-     for (int i = 0; i < n; i++)
+     jaldi kar bhai
+     int t;
+     cin >> t;
+
+     while (t--)
      {
-          int temp;
-          cin >> temp;
-          s.push_back(temp);
+
+          solution();
      }
-     for (int i = 0; i < n; i++)
-     {
-          int temp;
-          cin >> temp;
-          t.push_back(temp);
-     }
-     cout << selection(s, t) << "\n";
-     for (int i = 0; i < sol.size(); i++)
-          cout << sol[i]+1 << " ";
 }
